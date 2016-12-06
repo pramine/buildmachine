@@ -123,12 +123,14 @@ services:
             - "stashvol:/var/atlassian/stash"
 
     npm:
-        image: keyvanfatehi/sinopia:latest
+        image: verdaccio/verdaccio
         networks:
             - prodnetwork
         environment:
             - VIRTUAL_HOST=npm${ENV}.${DOMAIN}
             - VIRTUAL_PORT=4873
+        volumes:
+            - "./verdaccio/conf:/verdaccio/conf"
         
     stashdb:
         image: postgres:9.3
