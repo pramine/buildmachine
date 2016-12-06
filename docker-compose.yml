@@ -19,6 +19,7 @@ services:
                     - jenkins${ENV}.${DOMAIN}
                     - seleniumhub${ENV}.${DOMAIN}
                     - stash${ENV}.${DOMAIN}
+                    - npm${ENV}.${DOMAIN}
         volumes:
             - "/var/run/docker.sock:/tmp/docker.sock:ro"
 
@@ -120,6 +121,14 @@ services:
             - stashdb
         volumes:
             - "stashvol:/var/atlassian/stash"
+
+    npm:
+        image: keyvanfatehi/sinopia:latest
+        networks:
+            - prodnetwork
+        environment:
+            - VIRTUAL_HOST=npm${ENV}.${DOMAIN}
+            - VIRTUAL_PORT=4873
         
     stashdb:
         image: postgres:9.3
